@@ -4,8 +4,11 @@ const Joi = module.exports.Joi = module.exports.joi = require('joi');
 const coBody = require('co-body');
 
 function validateAsync(value, schema, options) {
+    console.log(value);
+    console.log(schema);
     return new Promise(function (resolve, reject) {
         return Joi.validate(value, schema, options, function (err, val) {
+            console.log(val);
             if (err) {
                 return reject(err);
             }
