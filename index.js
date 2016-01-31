@@ -28,13 +28,15 @@ module.exports.validator = function (opts) {
                 this.request.body = yield validateAsync(this.request.body, _opts.body, _opts.options);
             }
             if (_opts.headers) {
-                this.request.headers = yield validateAsync(this.request.headers, _opts.headers, _opts.options)
+                this.request.headers = yield validateAsync(this.request.headers, _opts.headers, _opts.options);
             }
             if (_opts.query) {
-                this.request.query = yield validateAsync(this.request.query, _opts.query, _opts.options)
+                const tmp = yield validateAsync(this.request.query, _opts.query, _opts.options);
+                console.log('tmp', tmp);
+                this.request.query = tmp;
             }
             if (_opts.params) {
-                this.request.params = yield validateAsync(this.request.params, _opts.params, _opts.options)
+                this.request.params = yield validateAsync(this.request.params, _opts.params, _opts.options);
             }
         } catch (e) {
             this.throw(_opts.failure, e);
