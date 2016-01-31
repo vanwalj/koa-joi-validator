@@ -11,7 +11,7 @@ module.exports.validator = function (opts) {
         failure: 400
     }, opts);
     return function * (next) {
-        this.request.validated = {};
+        this.request.validated = { query: {}, body: {}, headers: {}, params: {} };
         if (_opts.type && coBody[_opts.type]) {
             this.request.body = yield coBody[_opts.type](this);
         }
