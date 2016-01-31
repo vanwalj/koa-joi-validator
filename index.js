@@ -34,6 +34,7 @@ module.exports.validator = function (opts) {
                 const tmp = yield validateAsync(this.request.query, _opts.query, _opts.options);
                 console.log('tmp', tmp);
                 this.request.query = tmp;
+                console.log('this.request.query', this.request.query);
             }
             if (_opts.params) {
                 this.request.params = yield validateAsync(this.request.params, _opts.params, _opts.options);
