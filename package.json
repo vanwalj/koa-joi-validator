@@ -29,6 +29,6 @@
   "homepage": "https://github.com/vanwalj/koa-joi-validator#readme",
   "dependencies": {
     "co-body": "^4.0.0",
-    "joi": "^7.0.1"
+    "joi": "^7.2"
   }
 }
