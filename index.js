@@ -9,6 +9,7 @@ function validateAsync(value, schema, options) {
             if (err) {
                 return reject(err);
             }
+            console.log('val', val);
             return resolve(val);
         });
     });
@@ -38,7 +39,7 @@ module.exports.validator = function (opts) {
         } catch (e) {
             this.throw(_opts.failure, e);
         }
-        console.log(this.request.query);
+        console.log('query', this.request.query);
         yield next;
     };
 };
