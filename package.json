@@ -1,6 +1,6 @@
 {
   "name": "koa-joi-validator",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "WIP",
   "main": "index.js",
   "scripts": {
