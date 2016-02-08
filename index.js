@@ -17,20 +17,16 @@ module.exports.validate = function (opts) {
         }
         try {
             if (_opts.body) {
-                this.request.validated.body = yield _validate(this.request.body, _opts.body, _opts.options);
-                this.request.body = this.request.validated.body;
+                this.request.body = yield _validate(this.request.body, _opts.body, _opts.options);
             }
             if (_opts.headers) {
-                this.request.validated.headers = yield _validate(this.request.headers, _opts.headers, _opts.options);
-                this.request.headers = this.request.validated.headers;
+                yield _validate(this.request.headers, _opts.headers, _opts.options);
             }
             if (_opts.query) {
-                this.request.validated.query = yield _validate(this.request.query, _opts.query, _opts.options);
-                this.request.query = this.request.validated.query;
+                yield _validate(this.request.query, _opts.query, _opts.options);
             }
             if (_opts.params) {
-                this.request.validated.params = yield _validate(this.request.params, _opts.params, _opts.options);
-                this.request.params = this.request.validated.params;
+                yield _validate(this.request.params, _opts.params, _opts.options);
             }
         } catch (e) {
             this.throw(_opts.failure, e);
