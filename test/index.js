@@ -1,28 +1,14 @@
-# koa-joi-validator
-A simple validator for your awesome koa application
+'use strict';
 
-## API
+const koa = require('koa');
+const request = require('supertest');
+const Router = require('koa-router');
 
-```validator.Joi```
-The package Joi version (prefer this version over your custom version in case of breaking changes)
+const validator = require('../index');
 
-```validator.validate(options)```
-A koa middleware which will validate and transform the request
+const router = new Router();
+const app = koa();
 
-| param | type | required | description |
-|-------|------|------------------|-------------|
-| options | {} | true | |
-| options.type | string | Only if you want the request body to be parsed | the coBody parser to call, can be `json` `form` or `text` |
-| options.failure | int | false | The error code to throw on case of validation error, default to 400 |
-| options.options | {} | false | Options passed to Joi validator, such as `allowUnknown` |
-| options.body | Joi.object | false | A joi schema validated against the request body | 
-| options.params | Joi.object | false | A joi schema validated against the request params | 
-| options.headers | Joi.object | false | A joi schema validated against the request headers | 
-| options.query | Joi.object | false | A joi schema validated against the request query | 
- 
-## Usage
-
-``` es6
 router.post('/:number/:string/:date',
   validator.validate({
     type: 'json',
@@ -61,4 +47,22 @@ router.post('/:number/:string/:date',
     this.status = 204;
   }
 );
-```
+
+app.use(router.allowedMethods());
+app.use(router.routes());
+
+describe('Test suite', () => {
+  it('should work', () =>
+    request(require('http').createServer(app.callback()))
+      .post('/12/hello/2013-03-01T01:10:00?number=12&string=hello&date=2013-03-01T01:10:00')
+      .set('number', 12)
+      .set('string', 'hello')
+      .set('date', new Date())
+      .send({
+        number: 12,
+        string: 'hello',
+        date: new Date()
+      })
+      .expect(204)
+  );
+});

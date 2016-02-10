@@ -11,7 +11,6 @@ module.exports.validate = function (opts) {
         failure: 400
     }, opts);
     return function * (next) {
-        this.request.validated = { query: {}, body: {}, headers: {}, params: {} };
         if (_opts.type && coBody[_opts.type]) {
             this.request.body = yield coBody[_opts.type](this);
         }
@@ -20,13 +19,14 @@ module.exports.validate = function (opts) {
                 this.request.body = yield _validate(this.request.body, _opts.body, _opts.options);
             }
             if (_opts.headers) {
-                yield _validate(this.request.headers, _opts.headers, _opts.options);
+                Object.assign(this.request.headers, yield _validate(this.request.headers, _opts.headers, _opts.options));
             }
             if (_opts.query) {
-                yield _validate(this.request.query, _opts.query, _opts.options);
+                const query = yield _validate(this.request.query, _opts.query, _opts.options);
+                Object.defineProperty(this.request, 'query', { get() { return query } });
             }
             if (_opts.params) {
-                yield _validate(this.request.params, _opts.params, _opts.options);
+                this.params = yield _validate(this.params, _opts.params, _opts.options);
             }
         } catch (e) {
             this.throw(_opts.failure, e);

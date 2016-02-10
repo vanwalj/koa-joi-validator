@@ -1,7 +1,7 @@
 {
   "name": "koa-joi-validator",
-  "version": "3.0.1",
-  "description": "WIP",
+  "version": "4.0.0",
+  "description": "A simple Joi validator for koa router",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
@@ -28,8 +28,14 @@
   },
   "homepage": "https://github.com/vanwalj/koa-joi-validator#readme",
   "dependencies": {
-    "bluebird": "3.1.5",
+    "bluebird": "3.2.2",
     "co-body": "4.0.0",
     "joi": "7.2.3"
+  },
+  "devDependencies": {
+    "koa": "^1.1.2",
+    "koa-router": "^5.3.0",
+    "mocha": "^2.4.5",
+    "supertest": "^1.1.0"
   }
 }
