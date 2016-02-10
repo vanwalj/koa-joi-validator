@@ -3,10 +3,14 @@ A simple validator for your awesome koa application
 
 ## API
 
-```validator.Joi```
+```
+validator.Joi
+```
 The package Joi version (prefer this version over your custom version in case of breaking changes)
 
-```validator.validate(options)```
+```
+validator.validate(options)
+```
 A koa middleware which will validate and transform the request
 
 | param | type | required | description |
