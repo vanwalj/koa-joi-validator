@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "ava",
+    "lint": "eslint src",
     "transpile": "babel src --out-dir lib",
     "postinstall": "npm run transpile"
   },

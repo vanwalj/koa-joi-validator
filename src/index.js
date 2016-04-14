@@ -11,7 +11,7 @@ module.exports.validate = opts => {
     failure: 400,
     ...opts
   };
-  
+
   return async (ctx, next) => {
     if (_opts.type && coBody[_opts.type]) {
       ctx.request.body = await coBody[_opts.type](ctx);
@@ -25,7 +25,11 @@ module.exports.validate = opts => {
       }
       if (_opts.query) {
         const query = await _validate(ctx.request.query, _opts.query, _opts.options);
-        Object.defineProperty(ctx.request, 'query', { get() { return query } });
+        Object.defineProperty(ctx.request, 'query', {
+          get () {
+            return query;
+          }
+        });
       }
       if (_opts.params) {
         ctx.params = await _validate(ctx.params, _opts.params, _opts.options);
