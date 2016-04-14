@@ -1,13 +1,15 @@
 'use strict';
 
-const koa = require('koa');
+const test = require('ava');
+const Koa = require('koa');
+const compose = require('koa-compose');
 const request = require('supertest');
 const Router = require('koa-router');
 
-const validator = require('../index');
+const validator = require('../');
 
 const router = new Router();
-const app = koa();
+const app = new Koa();
 
 router.post('/:number/:string/:date',
   validator.validate({
@@ -33,36 +35,34 @@ router.post('/:number/:string/:date',
       date: validator.Joi.date().required()
     }
   }),
-  function * () {
-    this.assert(typeof this.params.number === 'number');
-    this.assert(typeof this.params.string === 'string');
-    this.assert(this.params.date instanceof Date);
+  ctx => {
+    ctx.assert(typeof ctx.params.number === 'number');
+    ctx.assert(typeof ctx.params.string === 'string');
+    ctx.assert(ctx.params.date instanceof Date);
 
     ['body', 'headers', 'query'].forEach(el => {
-      this.assert(typeof this.request[el].number === 'number');
-      this.assert(typeof this.request[el].string === 'string');
-      this.assert(this.request[el].date instanceof Date);
+      ctx.assert(typeof ctx.request[el].number === 'number');
+      ctx.assert(typeof ctx.request[el].string === 'string');
+      ctx.assert(ctx.request[el].date instanceof Date);
     });
 
-    this.status = 204;
+    ctx.status = 204;
   }
 );
 
 app.use(router.allowedMethods());
 app.use(router.routes());
 
-describe('Test suite', () => {
-  it('should work', () =>
-    request(require('http').createServer(app.callback()))
-      .post('/12/hello/2013-03-01T01:10:00?number=12&string=hello&date=2013-03-01T01:10:00')
-      .set('number', 12)
-      .set('string', 'hello')
-      .set('date', new Date())
-      .send({
-        number: 12,
-        string: 'hello',
-        date: new Date()
-      })
-      .expect(204)
-  );
-});
+test('should work', () =>
+  request(require('http').createServer(app.callback()))
+    .post('/12/hello/2013-03-01T01:10:00?number=12&string=hello&date=2013-03-01T01:10:00')
+    .set('number', 12)
+    .set('string', 'hello')
+    .set('date', new Date())
+    .send({
+      number: 12,
+      string: 'hello',
+      date: new Date()
+    })
+    .expect(204)
+);
