@@ -6,7 +6,7 @@ const coBody = require('co-body');
 
 const _validate = Promise.promisify(Joi.validate, { context: Joi });
 
-module.exports.validate = (opts) => {
+module.exports.validate = opts => {
   const _opts = {
     failure: 400,
     ...opts
