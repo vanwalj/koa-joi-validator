@@ -1,10 +1,12 @@
 {
   "name": "koa-joi-validator",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "A simple Joi validator for koa router",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "ava",
+    "transpile": "babel src --out-dir lib",
+    "postinstall": "npm run transpile"
   },
   "engines": {
     "node": ">=4"
@@ -28,13 +30,25 @@
   },
   "homepage": "https://github.com/vanwalj/koa-joi-validator#readme",
   "dependencies": {
-    "bluebird": "3.2.2",
+    "bluebird": "^3.3.5",
     "co-body": "4.0.0",
-    "joi": "7.2.3"
+    "joi": "^8.0.5"
+  },
+  "publishConfig": {
+    "tag": "next"
   },
   "devDependencies": {
-    "koa": "^1.1.2",
-    "koa-router": "^5.3.0",
+    "ava": "^0.14.0",
+    "babel": "^6.5.2",
+    "babel-cli": "^6.7.5",
+    "babel-core": "^6.7.6",
+    "babel-eslint": "^6.0.2",
+    "babel-preset-es2015-node5": "^1.2.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "eslint": "^2.7.0",
+    "koa": "^2.0.0",
+    "koa-compose": "^3.1.0",
+    "koa-router": "^7.0.1",
     "mocha": "^2.4.5",
     "supertest": "^1.1.0"
   }
