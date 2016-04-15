@@ -1,13 +1,13 @@
 {
   "name": "koa-joi-validator",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A simple Joi validator for koa router",
   "main": "index.js",
   "scripts": {
     "test": "ava",
     "lint": "eslint src",
     "transpile": "babel src --out-dir lib",
-    "postinstall": "npm run transpile"
+    "prepublish": "npm run lint; npm run transpile"
   },
   "engines": {
     "node": ">=4"
