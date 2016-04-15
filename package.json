@@ -1,6 +1,6 @@
 {
   "name": "koa-joi-validator",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "A simple Joi validator for koa router",
   "main": "index.js",
   "scripts": {
