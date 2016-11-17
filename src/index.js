@@ -14,7 +14,7 @@ module.exports.validate = opts => {
 
   return async (ctx, next) => {
     if (_opts.type && coBody[_opts.type]) {
-      ctx.request.body = await coBody[_opts.type](ctx);
+      ctx.request.body = await coBody[_opts.type](ctx, _opts.coBodyOptions);
     }
     try {
       if (_opts.body) {
